@@ -52,7 +52,7 @@ def load_model(model_path: str, device: str = None):
         device = "cuda" if torch.cuda.is_available() else "cpu"
 
     model = Model(num_classes=2)
-    state = torch.load(model_path, map_location="cpu")
+    state = torch.load(model_path, map_location="cpu", weights_only=False)
     model.load_state_dict(state)
     model.to(device)
     model.eval()
