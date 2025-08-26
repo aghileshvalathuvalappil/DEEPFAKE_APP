@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Deepfake Detector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Deepfake Detector</h1>
+        <p class="subtitle">Upload a video – the app will load your trained model and predict <b>REAL</b> or <b>FAKE</b>.</p>
+
+        <!-- Upload form -->
+        <form method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" accept="video/*" required>
+            <button type="submit">Analyze</button>
+        </form>
+
+        <!-- Error display -->
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+
+        <!-- Video playback -->
+        {% if filename %}
+            <div class="video-container">
+                <p><b>Uploaded:</b> {{ filename }}</p>
+                <video width="600" controls autoplay>
+                    <source src="{{ url_for('static', filename='uploads/' + filename) }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        {% endif %}
+
+        <!-- Prediction results -->
+        {% if prediction %}
+            <div class="result-box {{ prediction|lower }}">
+                <h2>{{ prediction }}</h2>
+                <p>Confidence: {{ confidence }}%</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
