@@ -1,81 +1,98 @@
-Deepfake Detection System
+# **Deepfake Detection System**
 
-This project implements a deepfake detection framework using state-of-the-art deep learning techniques. The system can analyse both images and videos to distinguish between authentic and manipulated media. It has been deployed with a user-friendly web interface on AWS, ensuring accessibility for non-technical stakeholders such as journalists, educators, and content moderators.
+
+This repository contains the implementation of a **Deepfake Detection Framework** leveraging **state-of-the-art deep learning models**. The system is capable of analysing both **images and videos** to classify media as **authentic or manipulated**, offering a robust tool for tackling misinformation and digital forgery.
+
+The application is deployed as a **user-friendly web platform** on **Amazon Web Services (AWS)**, enabling accessibility for **journalists, educators, policymakers, and content moderators**.
+
+---
 
 🔑 Key Features
 
-Deep learning–based classifier (EfficientNet-B0 baseline, extendable to hybrid/transformer models).
+**Deep Learning Classifier**
 
-Supports both image and video deepfake detection.
+* Baseline model: **EfficientNet-B0** trained on benchmark deepfake datasets.
+* Extendable to **hybrid CNN-Transformer architectures** and attention-based spatiotemporal models.
 
-AWS-hosted web application for scalability and real-world usability.
+**Multi-Modal Detection**
 
-Ethical design considerations, including dataset bias awareness and transparency in predictions.
+* Handles **image classification** and **video frame-wise analysis**.
+* Incorporates **preprocessing pipelines** (frame extraction, resizing, normalisation, optional face detection).
+
+**Deployment & Usability**
+
+* **AWS-hosted web application** for real-world scalability.
+* Interactive **Flask + Gunicorn API** backend with a lightweight **HTML/CSS front-end**.
+
+**Ethical Design Principles**
+
+* Transparent workflow with interpretable outputs.
+* Consideration of **dataset bias, compression artefacts, and demographic fairness**.
+
+---
 
 📦 Model Storage
 
-Due to GitHub’s file size limitations (100 MB per file), the trained model could not be uploaded here.
-Instead, it is securely stored on OneDrive. The download link is provided in the project documentation.
+Due to GitHub’s **100 MB file size limit**, trained model checkpoints are not stored in this repository. Instead:
+
+* OneDrive: [Download Here](https://uweacuk-my.sharepoint.com/:f:/g/personal/aghilesh2_valathuvalappil_live_uwe_ac_uk/Ep21zY7vEDVJklJsr3B1V_MB1t3YhKMGW2HJobj4oeP7nw?e=syqHSK)
+* Google Drive: [Download Here](https://drive.google.com/drive/folders/1dWQzAWDd3fo69eTRsi_Ep_YFiZGhUtFP?usp=sharing)
+
+After downloading, place the file inside the `models/` directory as:
+
+```
+models/deepfake_detector.pt
+```
+
+---
 
 ⚙️ Usage Instructions
 
-Download or clone the repository
+**Clone the repository**
 
-Get a copy of this project to your local machine.
+* Get a local copy of the project.
 
-Set up the environment
+**Set up the environment**
 
-Create a virtual environment (recommended) and install the dependencies listed in the requirements.txt file using your preferred package manager.
+* Create a virtual environment (recommended).
+* Install dependencies from `requirements.txt`.
 
-Obtain the trained model
+**Obtain the trained model**
 
-The model file is too large for GitHub and is therefore provided through OneDrive.
+* Download from OneDrive or Google Drive (links above).
+* Place inside the `models/` directory.
 
-Download the model from the link in the documentation.
+**Run the application locally**
 
-Place the model file into the models folder inside the project directory.
+* Start the app:
 
-Run the application
+  ```
+  python app.py
+  ```
+* Access at: [http://127.0.0.1:5000](http://127.0.0.1:5000).
 
-Start the application by running the main file (e.g., app.py).
+**Access via AWS (Recommended)**
 
-Once running, open your web browser and go to http://127.0.0.1:5000 to access the system for local host testing 
+* A fully deployed version is live on AWS.
+* Simply open the link in your browser, upload an image or video, and view results.
 
-Access via AWS (Recommended)
-
-The system is already deployed and accessible through the AWS link provided in the project documentation.
-
-Simply open the link in your web browser to upload media files (images or videos) and view the detection results.
+---
 
 📊 System Workflow
 
-Below is the high-level architecture of the project:
+```mermaid
+flowchart TD
+    A[User Upload] --> B[Preprocessing: Frame extraction, resizing, normalisation]
+    B --> C[Deep Learning Classification: EfficientNet-B0 or Transformer-based models]
+    C --> D[Prediction API: Flask + Gunicorn]
+    D --> E[Web Interface: AWS-hosted front-end]
+```
 
-         ┌─────────────┐
-         │  User Upload │
-         └──────┬──────┘
-                │
-        ┌───────▼────────┐
-        │ Preprocessing   │ (frame extraction, resizing, normalisation)
-        └───────┬────────┘
-                │
-        ┌───────▼────────┐
-        │ Deep Learning   │ (EfficientNet-B0 / hybrid models)
-        │  Classification │
-        └───────┬────────┘
-                │
-        ┌───────▼────────┐
-        │ Prediction API  │ (Flask + Gunicorn)
-        └───────┬────────┘
-                │
-        ┌───────▼────────┐
-        │ Web Interface   │ (AWS-hosted front-end)
-        └────────────────┘
+---
 
+🖥️ Project Structure
 
-## 🖥️ Project Structure
-
-```plaintext
+```
 deepfake_app/
 │── models/                # Pretrained model checkpoints (deepfake_detector.pt)
 │── static/                # Uploaded media, processed outputs, CSS
@@ -85,7 +102,20 @@ deepfake_app/
 │── utils.py               # Preprocessing utilities (frame extraction, face detection)
 │── requirements.txt       # Python dependencies
 │── README.md              # Project documentation
+```
 
-## 👨‍💻 Author
+---
 
-**Aghilesh Valathu Valappil** – CSCT Masters Project  
+📌 Future Improvements
+
+* Integration of **Transformer-based models** for better temporal feature extraction.
+* Implementation of **object-level forgery detection** (e.g., swapped backgrounds, manipulated artefacts beyond facial regions).
+* Deployment of a **REST API endpoint** for third-party integrations.
+* Enhanced interpretability with **heatmaps and Grad-CAM visualisations**.
+
+---
+
+👨‍💻 Author
+
+**Aghilesh Valathu Valappil**
+MSc Data Science – CSCT Masters Project
